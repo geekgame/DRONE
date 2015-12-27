@@ -6,6 +6,9 @@ using System.Threading;
 namespace Drone.Core.LowLevel
 {
     using System.Diagnostics.CodeAnalysis;
+    using System.Net.Sockets;
+
+    using Drone.Core.Networking;
 
     internal class servoblasterDll
     {
@@ -14,6 +17,8 @@ namespace Drone.Core.LowLevel
         /// </summary>
         public static void CreateDll()
         {
+
+            debut:
 
             #region fonction controle turbine
             var content = "#include <stdio.h>" + Environment.NewLine;
@@ -44,12 +49,13 @@ namespace Drone.Core.LowLevel
 
             Console.WriteLine("Fichier dll.c créé avec succès.");
 
-            //DEBUG SOUS WINDOWS :
+            // debug sous windows
             if (Environment.OSVersion.ToString().Contains("Microsoft"))
             {
-                goto suite;
+                // pas de compilation sous Windows
+                return;
             }
-            //FIN DEBUG SOUS WINDOWS
+            // fin debug sous win
 
             var psi = new ProcessStartInfo
             {
@@ -60,15 +66,20 @@ namespace Drone.Core.LowLevel
 
             //psi.RedirectStandardError = true;
             psi.UseShellExecute = true;
-            var p = Process.Start(psi);
-
-            while (!p.HasExited)
+            try
             {
-                Thread.Sleep(100);
+                var p = Process.Start(psi);
+                while (!p.HasExited)
+                {
+                    Thread.Sleep(100);
+                }
             }
-
-            suite:
-            Console.WriteLine("lel");
+            catch (FileNotFoundException)
+            {
+                // send debug packet ERR <file> !line! ErrorMsg
+                Networking.Sock.Send(Sock.mySock, "ERR <servoblaster.dll> !l75! FileNotFound");
+                goto debut;
+            }
         }
     }
 }

@@ -68,7 +68,7 @@ namespace Drone.Core
                         // Changer de mode de vol (vertical / horizontal)
                         if (command.StartsWith("modeVertical"))
                         {
-                            nav.flight.SwitchMode(enums.mode.modeVertical);
+                            nav.Flight.SwitchMode(enums.mode.modeVertical);
                         }
                     }
 

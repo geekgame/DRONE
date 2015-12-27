@@ -25,16 +25,25 @@ namespace Drone
     /// </summary>
     class Startup
     {
+        /// <summary>
+        /// Login used to identify to the server
+        /// </summary>
         public static string Login;
+
+        /// <summary>
+        /// Password used to identify to the server
+        /// </summary>
         public static string pass;
+
+
         public static string ip;
         public static int port;
 
         /// <summary>
-        /// The boot.
+        /// Booting the drone
         /// </summary>
         /// <returns>
-        /// The <see cref="bool"/>.
+        /// <see cref="bool"/> True if correctly booted.
         /// </returns>
         public static bool Boot()
         {
@@ -75,7 +84,7 @@ namespace Drone
             Drone.Core.utils.Console2.WriteLine("Waiting", ConsoleColor.Blue);
 
             // Démarrer équilibrage
-            Thread t_Balance = new Thread(new ThreadStart(flight.Balance));
+            Thread t_Balance = new Thread(new ThreadStart(Flight.Balance));
             t_Balance.Start();
             System.Threading.Thread.Sleep(1000);
 

@@ -4,7 +4,7 @@ using Drone.Properties;
 
 namespace Drone.Core.nav
 {
-    class flight
+    class Flight
     {
         public static bool SwitchMode(enums.mode m)
         {
@@ -18,18 +18,18 @@ namespace Drone.Core.nav
                 case enums.mode.modeHorizontal:
                     Program.curMode = enums.mode.modeVtoH;
                     return true;
-                    break;
                 case enums.mode.modeVertical:
                     Program.curMode = enums.mode.modeHtoV;
                     return true;
-                    break;
                 default:
                     //Ne rien faire
                     return true;
-                    break;
             }
         }
 
+        /// <summary>
+        /// Balancing the drone TODO
+        /// </summary>
         public static void Balance()
         {
             //doit être appelé en tant que thread différent.
