@@ -1,0 +1,15 @@
+digraph "Core/LowLevel" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_c6310732a22f63c0c2fc5595561e68f1 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="Core" fontname="Helvetica", fontsize="10", URL="dir_c6310732a22f63c0c2fc5595561e68f1.html"]
+  subgraph clusterdir_49f22cbf86f50b128a7dd66bbc17bc85 {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_49f22cbf86f50b128a7dd66bbc17bc85.html"];
+    dir_49f22cbf86f50b128a7dd66bbc17bc85 [shape=plaintext label="LowLevel"];
+    dir_36c04460b1c7efa7fb9b7d19c3dd32d2 [shape=box label="GPIO" color="black" fillcolor="white" style="filled" URL="dir_36c04460b1c7efa7fb9b7d19c3dd32d2.html"];
+    dir_04ec5699316ed550a9674b6a4fbd85b7 [shape=box label="sensor" color="black" fillcolor="white" style="filled" URL="dir_04ec5699316ed550a9674b6a4fbd85b7.html"];
+    dir_7af09670a9991ed4345a2818990e1d4d [shape=box label="servo" color="black" fillcolor="white" style="filled" URL="dir_7af09670a9991ed4345a2818990e1d4d.html"];
+  }
+  }
+}

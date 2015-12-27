@@ -1,0 +1,7 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Drone.Extensions.SharpDX.\lIntersectionResult",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d9/d9d/struct_drone_1_1_extensions_1_1_sharp_d_x_1_1_intersection_result.html",tooltip="Holds info for the Vector2Extensions.Intersection method. "];
+}

@@ -1,0 +1,14 @@
+digraph "Core" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_c6310732a22f63c0c2fc5595561e68f1 {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_c6310732a22f63c0c2fc5595561e68f1.html"];
+    dir_c6310732a22f63c0c2fc5595561e68f1 [shape=plaintext label="Core"];
+    dir_49f22cbf86f50b128a7dd66bbc17bc85 [shape=box label="LowLevel" color="red" fillcolor="white" style="filled" URL="dir_49f22cbf86f50b128a7dd66bbc17bc85.html"];
+    dir_034da4761f0c9f4bb6b9a8ae701ca393 [shape=box label="math" color="red" fillcolor="white" style="filled" URL="dir_034da4761f0c9f4bb6b9a8ae701ca393.html"];
+    dir_b896d728a02f7f7612f2f65e5a8f486f [shape=box label="nav" color="black" fillcolor="white" style="filled" URL="dir_b896d728a02f7f7612f2f65e5a8f486f.html"];
+    dir_53cb6bbba418e9b8105e9de642f1be1b [shape=box label="Networking" color="black" fillcolor="white" style="filled" URL="dir_53cb6bbba418e9b8105e9de642f1be1b.html"];
+    dir_27be13e75fab44217da71f927b518e2f [shape=box label="utils" color="black" fillcolor="white" style="filled" URL="dir_27be13e75fab44217da71f927b518e2f.html"];
+  }
+}

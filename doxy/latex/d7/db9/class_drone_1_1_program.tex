@@ -1,0 +1,159 @@
+\hypertarget{class_drone_1_1_program}{}\section{Drone.\+Program Class Reference}
+\label{class_drone_1_1_program}\index{Drone.\+Program@{Drone.\+Program}}
+
+
+The program.  
+
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_drone_1_1_program_a5fdbe9a7bf4701070bdf70bb7392f1e7}{Main} (string\mbox{[}$\,$\mbox{]} args)
+\begin{DoxyCompactList}\small\item\em The main. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static Stack$<$ Vector3 $>$ \hyperlink{class_drone_1_1_program_ad40ef1f4efb2b65d600ab10634066735}{Nav\+Points} = new Stack$<$Vector3$>$()
+\begin{DoxyCompactList}\small\item\em All nav points remaining. Stack so everytime a point is reached, it\textquotesingle{}s deleted and next point pop. \end{DoxyCompactList}\item 
+static Vector3 \hyperlink{class_drone_1_1_program_a14665ed89a4807be1919bf2cb7d1e943}{pos\+Cur\+Objective} = new Vector3()
+\begin{DoxyCompactList}\small\item\em The position of current objective \end{DoxyCompactList}\item 
+static Objective \hyperlink{class_drone_1_1_program_aff66fb52ebe59fd675ca624f522d7cf1}{Obj\+Cur\+Objective} = new Objective()
+\begin{DoxyCompactList}\small\item\em What does the drone want ? \end{DoxyCompactList}\item 
+static Action \hyperlink{class_drone_1_1_program_ad99d975310d2e7ec9ee9a7dc1b4f5877}{Cur\+Action}
+\begin{DoxyCompactList}\small\item\em What does the drone do ? \end{DoxyCompactList}\item 
+static Mode \hyperlink{class_drone_1_1_program_a68f4c050d6a63cb7b73b321a0c4d6939}{cur\+Mode} = Mode.\+mode\+Vertical
+\begin{DoxyCompactList}\small\item\em The current mode (vertical or horizontal) \end{DoxyCompactList}\item 
+static bool \hyperlink{class_drone_1_1_program_a0456c7157246ae73aed90f2f3b975cb6}{Logged} = false
+\begin{DoxyCompactList}\small\item\em True = user has permissions to control drone \end{DoxyCompactList}\item 
+static volatile bool \hyperlink{class_drone_1_1_program_a1a2665722afc1c24ed750a22ccf21d6a}{Balance\+Drone} = false
+\begin{DoxyCompactList}\small\item\em Does the drone have to stay balanced ? \end{DoxyCompactList}\item 
+static Socket \hyperlink{class_drone_1_1_program_a1d4d7b0f7bafc2486e62c2f76999e1ab}{sock} = null
+\begin{DoxyCompactList}\small\item\em The socket used to speak with server \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The program. 
+
+
+
+Definition at line 26 of file Program.\+cs.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_drone_1_1_program_a5fdbe9a7bf4701070bdf70bb7392f1e7}{}\index{Drone\+::\+Program@{Drone\+::\+Program}!Main@{Main}}
+\index{Main@{Main}!Drone\+::\+Program@{Drone\+::\+Program}}
+\subsubsection[{Main(string[] args)}]{\setlength{\rightskip}{0pt plus 5cm}static void Drone.\+Program.\+Main (
+\begin{DoxyParamCaption}
+\item[{string\mbox{[}$\,$\mbox{]}}]{args}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_drone_1_1_program_a5fdbe9a7bf4701070bdf70bb7392f1e7}
+
+
+The main. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The args passed by using -\/\+X\+X\+X after the name of the app (not used in this app). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 74 of file Program.\+cs.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_drone_1_1_program_a1a2665722afc1c24ed750a22ccf21d6a}{}\index{Drone\+::\+Program@{Drone\+::\+Program}!Balance\+Drone@{Balance\+Drone}}
+\index{Balance\+Drone@{Balance\+Drone}!Drone\+::\+Program@{Drone\+::\+Program}}
+\subsubsection[{Balance\+Drone}]{\setlength{\rightskip}{0pt plus 5cm}volatile bool Drone.\+Program.\+Balance\+Drone = false\hspace{0.3cm}{\ttfamily [static]}}\label{class_drone_1_1_program_a1a2665722afc1c24ed750a22ccf21d6a}
+
+
+Does the drone have to stay balanced ? 
+
+
+
+Definition at line 61 of file Program.\+cs.
+
+\hypertarget{class_drone_1_1_program_ad99d975310d2e7ec9ee9a7dc1b4f5877}{}\index{Drone\+::\+Program@{Drone\+::\+Program}!Cur\+Action@{Cur\+Action}}
+\index{Cur\+Action@{Cur\+Action}!Drone\+::\+Program@{Drone\+::\+Program}}
+\subsubsection[{Cur\+Action}]{\setlength{\rightskip}{0pt plus 5cm}Action Drone.\+Program.\+Cur\+Action\hspace{0.3cm}{\ttfamily [static]}}\label{class_drone_1_1_program_ad99d975310d2e7ec9ee9a7dc1b4f5877}
+
+
+What does the drone do ? 
+
+
+
+Definition at line 46 of file Program.\+cs.
+
+\hypertarget{class_drone_1_1_program_a68f4c050d6a63cb7b73b321a0c4d6939}{}\index{Drone\+::\+Program@{Drone\+::\+Program}!cur\+Mode@{cur\+Mode}}
+\index{cur\+Mode@{cur\+Mode}!Drone\+::\+Program@{Drone\+::\+Program}}
+\subsubsection[{cur\+Mode}]{\setlength{\rightskip}{0pt plus 5cm}Mode Drone.\+Program.\+cur\+Mode = Mode.\+mode\+Vertical\hspace{0.3cm}{\ttfamily [static]}}\label{class_drone_1_1_program_a68f4c050d6a63cb7b73b321a0c4d6939}
+
+
+The current mode (vertical or horizontal) 
+
+
+
+Definition at line 51 of file Program.\+cs.
+
+\hypertarget{class_drone_1_1_program_a0456c7157246ae73aed90f2f3b975cb6}{}\index{Drone\+::\+Program@{Drone\+::\+Program}!Logged@{Logged}}
+\index{Logged@{Logged}!Drone\+::\+Program@{Drone\+::\+Program}}
+\subsubsection[{Logged}]{\setlength{\rightskip}{0pt plus 5cm}bool Drone.\+Program.\+Logged = false\hspace{0.3cm}{\ttfamily [static]}}\label{class_drone_1_1_program_a0456c7157246ae73aed90f2f3b975cb6}
+
+
+True = user has permissions to control drone 
+
+
+
+Definition at line 56 of file Program.\+cs.
+
+\hypertarget{class_drone_1_1_program_ad40ef1f4efb2b65d600ab10634066735}{}\index{Drone\+::\+Program@{Drone\+::\+Program}!Nav\+Points@{Nav\+Points}}
+\index{Nav\+Points@{Nav\+Points}!Drone\+::\+Program@{Drone\+::\+Program}}
+\subsubsection[{Nav\+Points}]{\setlength{\rightskip}{0pt plus 5cm}Stack$<$Vector3$>$ Drone.\+Program.\+Nav\+Points = new Stack$<$Vector3$>$()\hspace{0.3cm}{\ttfamily [static]}}\label{class_drone_1_1_program_ad40ef1f4efb2b65d600ab10634066735}
+
+
+All nav points remaining. Stack so everytime a point is reached, it\textquotesingle{}s deleted and next point pop. 
+
+
+
+Definition at line 31 of file Program.\+cs.
+
+\hypertarget{class_drone_1_1_program_aff66fb52ebe59fd675ca624f522d7cf1}{}\index{Drone\+::\+Program@{Drone\+::\+Program}!Obj\+Cur\+Objective@{Obj\+Cur\+Objective}}
+\index{Obj\+Cur\+Objective@{Obj\+Cur\+Objective}!Drone\+::\+Program@{Drone\+::\+Program}}
+\subsubsection[{Obj\+Cur\+Objective}]{\setlength{\rightskip}{0pt plus 5cm}Objective Drone.\+Program.\+Obj\+Cur\+Objective = new Objective()\hspace{0.3cm}{\ttfamily [static]}}\label{class_drone_1_1_program_aff66fb52ebe59fd675ca624f522d7cf1}
+
+
+What does the drone want ? 
+
+
+
+Definition at line 41 of file Program.\+cs.
+
+\hypertarget{class_drone_1_1_program_a14665ed89a4807be1919bf2cb7d1e943}{}\index{Drone\+::\+Program@{Drone\+::\+Program}!pos\+Cur\+Objective@{pos\+Cur\+Objective}}
+\index{pos\+Cur\+Objective@{pos\+Cur\+Objective}!Drone\+::\+Program@{Drone\+::\+Program}}
+\subsubsection[{pos\+Cur\+Objective}]{\setlength{\rightskip}{0pt plus 5cm}Vector3 Drone.\+Program.\+pos\+Cur\+Objective = new Vector3()\hspace{0.3cm}{\ttfamily [static]}}\label{class_drone_1_1_program_a14665ed89a4807be1919bf2cb7d1e943}
+
+
+The position of current objective 
+
+
+
+Definition at line 36 of file Program.\+cs.
+
+\hypertarget{class_drone_1_1_program_a1d4d7b0f7bafc2486e62c2f76999e1ab}{}\index{Drone\+::\+Program@{Drone\+::\+Program}!sock@{sock}}
+\index{sock@{sock}!Drone\+::\+Program@{Drone\+::\+Program}}
+\subsubsection[{sock}]{\setlength{\rightskip}{0pt plus 5cm}Socket Drone.\+Program.\+sock = null\hspace{0.3cm}{\ttfamily [static]}}\label{class_drone_1_1_program_a1d4d7b0f7bafc2486e62c2f76999e1ab}
+
+
+The socket used to speak with server 
+
+
+
+Definition at line 66 of file Program.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Program.\+cs\end{DoxyCompactItemize}

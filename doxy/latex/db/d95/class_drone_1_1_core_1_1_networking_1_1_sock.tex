@@ -1,0 +1,61 @@
+\hypertarget{class_drone_1_1_core_1_1_networking_1_1_sock}{}\section{Drone.\+Core.\+Networking.\+Sock Class Reference}
+\label{class_drone_1_1_core_1_1_networking_1_1_sock}\index{Drone.\+Core.\+Networking.\+Sock@{Drone.\+Core.\+Networking.\+Sock}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_drone_1_1_core_1_1_networking_1_1_sock_adb2eab72fbe21cd63c971cca79afeb5e}{}static void {\bfseries init} (string Server\+Ip, int Server\+Port)\label{class_drone_1_1_core_1_1_networking_1_1_sock_adb2eab72fbe21cd63c971cca79afeb5e}
+
+\item 
+\hypertarget{class_drone_1_1_core_1_1_networking_1_1_sock_aef86faf1c31761b93eacd231645daa11}{}static void {\bfseries Connect} (End\+Point remote\+E\+P, Socket client)\label{class_drone_1_1_core_1_1_networking_1_1_sock_aef86faf1c31761b93eacd231645daa11}
+
+\item 
+\hypertarget{class_drone_1_1_core_1_1_networking_1_1_sock_afee8d5bda70b7ec2ff2051dcceb85c78}{}static void {\bfseries Send} (Socket client, String data)\label{class_drone_1_1_core_1_1_networking_1_1_sock_afee8d5bda70b7ec2ff2051dcceb85c78}
+
+\item 
+\hypertarget{class_drone_1_1_core_1_1_networking_1_1_sock_ae5e8d8991d2f1e02c02b67a13a74ed23}{}static void {\bfseries Receive} (Socket client)\label{class_drone_1_1_core_1_1_networking_1_1_sock_ae5e8d8991d2f1e02c02b67a13a74ed23}
+
+\item 
+static string \hyperlink{class_drone_1_1_core_1_1_networking_1_1_sock_aee851b4daec2959232b320286e54dde5}{Listen} ()
+\begin{DoxyCompactList}\small\item\em La fonction attend et renvoie la valeur du socket lu A utiliser uniquement dans un thread (car fonction bloquante) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_drone_1_1_core_1_1_networking_1_1_sock_a358ac012584f5ec8df16f8f801b9ea70}{}static volatile string {\bfseries response}\label{class_drone_1_1_core_1_1_networking_1_1_sock_a358ac012584f5ec8df16f8f801b9ea70}
+
+\item 
+\hypertarget{class_drone_1_1_core_1_1_networking_1_1_sock_afb4cd3662e8d4ccbf5c2da2e34eee603}{}static volatile Socket {\bfseries my\+Sock}\label{class_drone_1_1_core_1_1_networking_1_1_sock_afb4cd3662e8d4ccbf5c2da2e34eee603}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 23 of file Sock.\+cs.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_drone_1_1_core_1_1_networking_1_1_sock_aee851b4daec2959232b320286e54dde5}{}\index{Drone\+::\+Core\+::\+Networking\+::\+Sock@{Drone\+::\+Core\+::\+Networking\+::\+Sock}!Listen@{Listen}}
+\index{Listen@{Listen}!Drone\+::\+Core\+::\+Networking\+::\+Sock@{Drone\+::\+Core\+::\+Networking\+::\+Sock}}
+\subsubsection[{Listen()}]{\setlength{\rightskip}{0pt plus 5cm}static string Drone.\+Core.\+Networking.\+Sock.\+Listen (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_drone_1_1_core_1_1_networking_1_1_sock_aee851b4daec2959232b320286e54dde5}
+
+
+La fonction attend et renvoie la valeur du socket lu A utiliser uniquement dans un thread (car fonction bloquante) 
+
+\begin{DoxyReturn}{Returns}
+R\+Envoie le texte lu
+\end{DoxyReturn}
+
+
+Definition at line 176 of file Sock.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Core/\+Networking/Sock.\+cs\end{DoxyCompactItemize}

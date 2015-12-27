@@ -1,0 +1,7 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Drone.Core.LowLevel.sensor.\lAccelerometer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/d69/class_drone_1_1_core_1_1_low_level_1_1sensor_1_1_accelerometer.html"];
+}

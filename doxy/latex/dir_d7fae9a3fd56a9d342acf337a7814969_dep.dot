@@ -1,0 +1,10 @@
+digraph "Extensions" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_d7fae9a3fd56a9d342acf337a7814969 {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_d7fae9a3fd56a9d342acf337a7814969.html"];
+    dir_d7fae9a3fd56a9d342acf337a7814969 [shape=plaintext label="Extensions"];
+    dir_d530eaf4236b7c856b5464b994ba141a [shape=box label="SharpDX" color="black" fillcolor="white" style="filled" URL="dir_d530eaf4236b7c856b5464b994ba141a.html"];
+  }
+}

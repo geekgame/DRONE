@@ -1,0 +1,21 @@
+﻿namespace Drone.Core.nav
+{
+    class gps
+    {
+        private static float x;
+        private static float y;
+        private static float z;
+
+        gps()
+        {
+            x = 0;
+            y = 0;
+            z = 0;
+        }
+
+        public static void GetPosition()
+        {
+            // Faire en sorte de lire la position.
+        }
+    }
+}

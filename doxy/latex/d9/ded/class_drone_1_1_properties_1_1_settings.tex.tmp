@@ -1,0 +1,56 @@
+\hypertarget{class_drone_1_1_properties_1_1_settings}{}\section{Drone.\+Properties.\+Settings Class Reference}
+\label{class_drone_1_1_properties_1_1_settings}\index{Drone.\+Properties.\+Settings@{Drone.\+Properties.\+Settings}}
+
+
+Inheritance diagram for Drone.\+Properties.\+Settings\+:
+% FIG 0
+
+
+Collaboration diagram for Drone.\+Properties.\+Settings\+:
+% FIG 1
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_drone_1_1_properties_1_1_settings_aa1d46bdcc459f47e80c2e78439ed840a}{}static \hyperlink{class_drone_1_1_properties_1_1_settings}{Settings} {\bfseries Default}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}\label{class_drone_1_1_properties_1_1_settings_aa1d46bdcc459f47e80c2e78439ed840a}
+
+\item 
+\hypertarget{class_drone_1_1_properties_1_1_settings_a60b33da8a8e9a1ab56ee5f810384ef81}{}int {\bfseries Motor\+R0}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}\label{class_drone_1_1_properties_1_1_settings_a60b33da8a8e9a1ab56ee5f810384ef81}
+
+\item 
+\hypertarget{class_drone_1_1_properties_1_1_settings_ac632aca837f15b0800174536a6aac795}{}int {\bfseries Motor\+L0}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}\label{class_drone_1_1_properties_1_1_settings_ac632aca837f15b0800174536a6aac795}
+
+\item 
+\hypertarget{class_drone_1_1_properties_1_1_settings_a13befeb631c272afd653d8c72eb24a9b}{}int {\bfseries Motor\+R100}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}\label{class_drone_1_1_properties_1_1_settings_a13befeb631c272afd653d8c72eb24a9b}
+
+\item 
+\hypertarget{class_drone_1_1_properties_1_1_settings_a7cbbbfd92544762195f3ad8a12160c3f}{}int {\bfseries Motor\+L100}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}\label{class_drone_1_1_properties_1_1_settings_a7cbbbfd92544762195f3ad8a12160c3f}
+
+\item 
+\hypertarget{class_drone_1_1_properties_1_1_settings_a5776202ccca5d980f60ce69b9b826db5}{}float {\bfseries Accelero\+R0}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}\label{class_drone_1_1_properties_1_1_settings_a5776202ccca5d980f60ce69b9b826db5}
+
+\item 
+\hypertarget{class_drone_1_1_properties_1_1_settings_a6d3109ef5673119dc926f29808463e75}{}float {\bfseries Accelero\+T0}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}\label{class_drone_1_1_properties_1_1_settings_a6d3109ef5673119dc926f29808463e75}
+
+\item 
+\hypertarget{class_drone_1_1_properties_1_1_settings_a2e0f6188dd1b601885d1001ef67ab18e}{}bool {\bfseries Accelero\+Is\+Trigo\+Positive}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}\label{class_drone_1_1_properties_1_1_settings_a2e0f6188dd1b601885d1001ef67ab18e}
+
+\item 
+\hypertarget{class_drone_1_1_properties_1_1_settings_a82b201b978cc285f044b437485f5d057}{}bool {\bfseries Accelero\+Is\+Down\+Positive}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}\label{class_drone_1_1_properties_1_1_settings_a82b201b978cc285f044b437485f5d057}
+
+\item 
+\hypertarget{class_drone_1_1_properties_1_1_settings_a4281897975bc87bb572834e7d5971867}{}bool {\bfseries is\+Configured}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}\label{class_drone_1_1_properties_1_1_settings_a4281897975bc87bb572834e7d5971867}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 16 of file Settings.\+Designer.\+cs.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Properties/Settings.\+Designer.\+cs\item 
+Settings.\+cs\end{DoxyCompactItemize}
