@@ -6,15 +6,16 @@
 //   Defines the Startup type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 #define DEBUG
 
 namespace Drone
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
+    using System.Diagnostics;
+    using System.IO;
     using System.Threading;
 
+    using Drone.Core.LowLevel;
     using Drone.Core.nav;
     using Drone.Core.Networking;
     using Drone.Core.utils;
@@ -23,21 +24,27 @@ namespace Drone
     /// <summary>
     /// Class to start program, initialization etc
     /// </summary>
-    class Startup
+    public static class Startup
     {
         /// <summary>
-        /// Login used to identify to the server
+        /// login used to identify to the server
         /// </summary>
-        public static string Login;
+        private static string login;
 
         /// <summary>
         /// Password used to identify to the server
         /// </summary>
-        public static string pass;
+        private static string pass;
 
+        /// <summary>
+        /// IP of the server
+        /// </summary>
+        private static string ip;
 
-        public static string ip;
-        public static int port;
+        /// <summary>
+        /// Port open on the server
+        /// </summary>
+        private static int port;
 
         /// <summary>
         /// Booting the drone
@@ -45,48 +52,74 @@ namespace Drone
         /// <returns>
         /// <see cref="bool"/> True if correctly booted.
         /// </returns>
+        /// <exception cref="ThreadStateException">Le thread a déjà été démarré. </exception>
+        /// <exception cref="ObjectDisposedException">L'objet de processus a déjà été supprimé. </exception>
+        /// <exception cref="FileNotFoundException">Le fichier spécifié dans le <paramref name="startInfo" /> du paramètre <see cref="P:System.Diagnostics.ProcessStartInfo.FileName" /> propriété introuvable.</exception>
+        /// <exception cref="Win32Exception">Une erreur s'est produite lors de l'ouverture du fichier associé. ouLa somme de la longueur des arguments et de la longueur du chemin d'accès complet au processus dépasse 2080.Le message d'erreur associé à cette exception peut être une des valeurs suivantes: « la zone de données passée à un appel système est trop petit. » ou « Accès refusé ».</exception>
+        /// <exception cref="ArgumentNullException">Le paramètre <paramref name="startInfo" /> a la valeur null. </exception>
+        /// <exception cref="InvalidOperationException">Aucun nom de fichier a été spécifié dans le <paramref name="startInfo" /> du paramètre <see cref="P:System.Diagnostics.ProcessStartInfo.FileName" /> propriété.ou Le <see cref="P:System.Diagnostics.ProcessStartInfo.UseShellExecute" /> propriété de le <paramref name="startInfo" /> paramètre est true et <see cref="P:System.Diagnostics.ProcessStartInfo.RedirectStandardInput" />, <see cref="P:System.Diagnostics.ProcessStartInfo.RedirectStandardOutput" />, ou <see cref="P:System.Diagnostics.ProcessStartInfo.RedirectStandardError" /> propriété est également true.ouLe <see cref="P:System.Diagnostics.ProcessStartInfo.UseShellExecute" /> propriété de le <paramref name="startInfo" /> paramètre est true et le <see cref="P:System.Diagnostics.ProcessStartInfo.UserName" /> propriété n'est pas null ou est vide ou <see cref="P:System.Diagnostics.ProcessStartInfo.Password" /> propriété n'est pas null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">La valeur de délai d'attente est négative et n'est pas égale à <see cref="F:System.Threading.Timeout.Infinite" />. </exception>
+        /// <exception cref="SecurityException">L'utilisateur n'est pas autorisé à effectuer cette action. </exception>
+        /// <exception cref="IOException">Une erreur d'E/S s'est produite. </exception>
         public static bool Boot()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            displayMessage();
+            DisplayMessage();
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(Resources.Startup_Boot_Debut_phase_de_démarrage);
-            checkFiles();
-            getCredentials();
+            CheckFiles();
+            GetCredentials();
             Console.WriteLine(Resources.Startup_Boot_Drone_en_ligne__Connexion_au_serveur);
             Sock.init(ip, port);
-            Console.WriteLine("Connexion au serveur effectuée. Test des données");
-            System.Threading.Thread.Sleep(1000);
+            Console.WriteLine(@"Connexion au serveur effectuée. Test des données");
+            Thread.Sleep(1000);
             Sock.Receive(Sock.mySock);
-            System.Threading.Thread.Sleep(1000);
-            Sock.Send(Sock.mySock,"test<EOF>");
-            System.Threading.Thread.Sleep(1000);
-            Console.WriteLine("Envoi / réception de données OK");
-            Console.WriteLine("Check des paramètres du drone.");
-            if (!Properties.Settings.Default.isConfigured)
+            Thread.Sleep(1000);
+            Sock.Send(Sock.mySock, "test<EOF>");
+            Thread.Sleep(1000);
+            Console.WriteLine(@"Envoi / réception de données OK");
+            Console.WriteLine(@"Check des paramètres du drone.");
+            if (!Settings.Default.isConfigured)
             {
                 Console2.WriteLine("Non paramétré. Il est conseillé de régler cela au plus vite.", ConsoleColor.Blue);
                 Sock.Send(Sock.mySock, "Config");
             }
             else
             {
-                Console.WriteLine("Drone paramétré :)");
+                Console.WriteLine(@"Drone paramétré :)");
                 Sock.Send(Sock.mySock, "okConfig");
             }
 
-            login1();
+            Login1();
 
-            while (!Program.Logged) ;
-            Console2.WriteLine("Drone démarré. Bienvenue.", ConsoleColor.Green);
+            while (!Program.Logged)
+            {
+            }
+
+            Console2.WriteLine(@"Drone démarré. Bienvenue.", ConsoleColor.Green);
             Sock.Send(Sock.mySock, "on");
 
-
-            Drone.Core.utils.Console2.WriteLine("Waiting", ConsoleColor.Blue);
+            Console2.WriteLine("Waiting", ConsoleColor.Blue);
 
             // Démarrer équilibrage
-            Thread t_Balance = new Thread(new ThreadStart(Flight.Balance));
-            t_Balance.Start();
-            System.Threading.Thread.Sleep(1000);
+            Thread tBalance = new Thread(Flight.Balance);
+            try
+            {
+                tBalance.Start();
+            }
+            catch (OutOfMemoryException)
+            {
+                Console.WriteLine(@"NOT ENOUGH MEMORY. RESTARTING...");
+                System.Threading.Thread.Sleep(1000);
+                var psi = new ProcessStartInfo
+                {
+                    UseShellExecute = true,
+                    FileName = "/sbin/shutdown",
+                    Arguments = "-r now"
+                };
+                Process.Start(psi);
+            }
+            Thread.Sleep(1000);
 
             // balanceDrone = false;
             return true;                                                                           
@@ -95,7 +128,7 @@ namespace Drone
         /// <summary>
         /// Afficher message pour design
         /// </summary>
-        public static void displayMessage()
+        private static void DisplayMessage()
         {
             Console.WriteLine(@"/$$$$$$$  /$$$$$$$   /$$$$$$  /$$   /$$ /$$$$$$$$  ");
             Console.WriteLine(@"| $$__  $$| $$__  $$ /$$__  $$| $$$ | $$| $$_____ /");
@@ -118,63 +151,94 @@ namespace Drone
                                                   
                                                   
         }
-        public static void checkFiles()
-        {
-            Console.WriteLine("Vérification des fichiers");
-            //Check python
-            //while(!Drone.Core.LowLevel.PythonControl.InitPythonFiles()) ;
 
-            //TODO : CHECK FICHIERS
-            if(!System.IO.File.Exists("./dll.so"))
+        /// <summary>
+        /// Check if all files needed are present at the good location
+        /// </summary>
+        private static void CheckFiles()
+        {
+            Console.WriteLine(@"Vérification des fichiers");
+
+            // Check python
+            // while(!Drone.Core.LowLevel.PythonControl.InitPythonFiles()) ;
+
+            // TODO : CHECK FICHIERS
+            if (!File.Exists("./dll.so"))
             {
                 // créer la dll qui controle les servos avec servoblaster
-                Drone.Core.LowLevel.servoblasterDll.CreateDll();
+                servoblasterDll.CreateDll();
             }
-            Console.WriteLine("OK.");
+
+            Console.WriteLine(@"OK.");
         }
-        public static bool getCredentials()
+
+        /// <summary>
+        /// Get credentials from a HTTP web server in order to authenticate to the socket server
+        /// </summary>
+        /// <returns>
+        /// <see cref="bool"/> True if it worked.
+        /// </returns>
+        private static bool GetCredentials()
         {
-            Console.WriteLine("Récupération des identifiants.");
-            Console.WriteLine("Tentative de connexion au serveur...");
+            Console.WriteLine(@"Récupération des identifiants.");
+            Console.WriteLine(@"Tentative de connexion au serveur...");
 
-            string file = Internet.GetHttp("http://127.0.0.1/drone/config");
+            string file = Internet.GetHttp(@"http://127.0.0.1/drone/config");
 
-            string[] datas = file.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            string[] datas = file.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
-            Console.WriteLine("---------------------------------------");
+            Console.WriteLine(@"---------------------------------------");
 
             // 0 IP
             // 1 port
             // 2 login
             // 3 pass
-            Console.WriteLine(datas[0] + "\n" + datas[1] + "\n" + datas[2] + "\n" + datas[3]);
-            Login = datas[2];
+            if (datas.Length > 3)
+            {
+                Console.WriteLine(datas[0] + "\n" + datas[1] + "\n" + datas[2] + "\n" + datas[3]);
+            }
+            login = datas[2];
             pass = datas[3];
             ip = datas[0];
             port = int.Parse(datas[1]);
-            Console.WriteLine("---------------------------------------");
+            Console.WriteLine(@"---------------------------------------");
             return true;
         }
-        public static void login1()
+
+        /// <summary>
+        /// Send login to server
+        /// </summary>
+        /// <exception cref="IOException">
+        /// Une erreur d'E/S s'est produite. 
+        /// </exception>
+        private static void Login1()
         {
-            Console.WriteLine("Authentification au serveur");
-            Sock.Send(Sock.mySock, "login|" + Login + "|" + pass+"<EOF>");
-            Console.WriteLine("Requête envoyée. En attente de la réponse.");
+            Console.WriteLine(@"Authentification au serveur");
+            Sock.Send(Sock.mySock, "login|" + login + "|" + pass + "<EOF>");
+            Console.WriteLine(@"Requête envoyée. En attente de la réponse.");
         }
 
-        public static bool reconnect()
+        /// <summary>
+        /// Reconnect when the drone lost connection to the server
+        /// </summary>
+        /// <returns>
+        /// <see cref="bool"/> True when ok.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">La valeur de délai d'attente est négative et n'est pas égale à <see cref="F:System.Threading.Timeout.Infinite" />. </exception>
+        /// <exception cref="IOException">Une erreur d'E/S s'est produite. </exception>
+        public static bool Reconnect()
         {
-            if(!getCredentials())
+            if(!GetCredentials())
             {
-                Console.WriteLine("Impossible de se reconnecter.");
-                Console2.WriteLine("Mode automatique.", ConsoleColor.Yellow);
+                Console.WriteLine(@"Impossible de se reconnecter.");
+                Console2.WriteLine(@"Mode automatique.", ConsoleColor.Yellow);
                 return false;
             }
 
             Sock.init(ip, port);
             Sock.Receive(Sock.mySock);
-            System.Threading.Thread.Sleep(1000);
-            Sock.Send(Sock.mySock, "rc");//reconnected
+            Thread.Sleep(1000);
+            Sock.Send(Sock.mySock, "rc"); // reconnected
 
             return true;
         }

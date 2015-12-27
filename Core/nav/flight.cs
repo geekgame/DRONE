@@ -1,16 +1,26 @@
-﻿using System;
-using Drone.Core.LowLevel.sensor;
-using Drone.Properties;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="flight.cs" company="geekgame">
+//   All rights reserved
+// </copyright>
+// <summary>
+//   Defines the Program type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Drone.Core.nav
 {
+    using System;
+
+    using Drone.Core.LowLevel.sensor;
+    using Drone.Properties;
+
     class Flight
     {
         public static bool SwitchMode(enums.mode m)
         {
             if(Program.curMode == m)
             {
-                Console.WriteLine("Le drone est déjà dans le mode désiré");
+                Console.WriteLine(@"Le drone est déjà dans le mode désiré");
                 return true;
             }
             switch(m)

@@ -9,8 +9,12 @@
 
 namespace Drone
 {
+    using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.IO;
     using System.Net.Sockets;
+    using System.Threading;
 
     using Core.Networking;
 
@@ -23,7 +27,7 @@ namespace Drone
     /// <summary>
     /// The program.
     /// </summary>
-    public class Program
+    public static class Program
     {
         /// <summary>
         /// All nav points remaining. Stack so everytime a point is reached, it's deleted and next point pop.
@@ -33,7 +37,7 @@ namespace Drone
         /// <summary>
         /// The position of current objective
         /// </summary>
-        public static Vector3 posCurObjective = new Vector3();
+        public static Vector3 PosCurObjective = new Vector3();
 
         /// <summary>
         /// What does the drone want ?
@@ -48,7 +52,7 @@ namespace Drone
         /// <summary>
         /// The current mode (vertical or horizontal)
         /// </summary>
-        public static Mode curMode = Mode.modeVertical;     //le mode de vol actuel
+        public static Mode CurMode = Mode.modeVertical;     //le mode de vol actuel
 
         /// <summary>
         /// Does the drone have to stay balanced ?
@@ -71,6 +75,9 @@ namespace Drone
         /// <param name="args">
         /// The args passed by using -XXX after the name of the app (not used in this app).
         /// </param>
+        /// <exception cref="ObjectDisposedException">L'objet de processus a déjà été supprimé. </exception>
+        /// <exception cref="Win32Exception">Une erreur s'est produite lors de l'ouverture du fichier associé. ouLa somme de la longueur des arguments et de la longueur du chemin d'accès complet au processus dépasse 2080.Le message d'erreur associé à cette exception peut être une des valeurs suivantes: « la zone de données passée à un appel système est trop petit. » ou « Accès refusé ».</exception>
+
         public static void Main(string[] args)
         {
             while (true)
@@ -78,7 +85,22 @@ namespace Drone
                 switch (CurAction)
                 {
                     case Action.ActionBooting:
-                        CurAction = Startup.Boot() ? Action.ActionWaiting : Action.ActionProblem;
+                        try
+                        {
+                            CurAction = Startup.Boot() ? Action.ActionWaiting : Action.ActionProblem;
+                        }
+                        catch (ThreadStateException threadStateException)
+                        {
+                            // TODO: Handle the threadStateException 
+                        }
+                        catch (FileNotFoundException fileNotFoundException)
+                        {
+                            // TODO: Handle the FileNotFoundException 
+                        }
+                        catch (Win32Exception win32Exception)
+                        {
+                            // TODO: Handle the Win32Exception 
+                        }
                         Sock = Core.Networking.Sock.mySock;
                         break;
 
