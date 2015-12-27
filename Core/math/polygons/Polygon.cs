@@ -1,10 +1,9 @@
 ﻿//using Drone.Extensions.SharpDX;
-
-
 namespace Drone.Core.math.Polygons
 {
-    class Polygon
-    { /*
+    internal class Polygon
+    {
+        /*
         private static List<Vector2> _points = new List<Vector2>();
 
         public List<Vector2> Points

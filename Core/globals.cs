@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Drone.Core
+﻿namespace Drone.Core
 {
-    class globals
+    internal class globals
     {
         public static bool gbAuthorized = false;
     }

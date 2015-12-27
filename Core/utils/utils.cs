@@ -1,8 +1,8 @@
-﻿using System;
-
-namespace Drone.Core.utils
+﻿namespace Drone.Core.utils
 {
-    class Console2
+    using System;
+
+    internal class Console2
     {
         public static void WriteLine(string a, ConsoleColor b)
         {

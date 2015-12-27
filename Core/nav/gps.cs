@@ -1,12 +1,14 @@
 ﻿namespace Drone.Core.nav
 {
-    class gps
+    internal class gps
     {
         private static float x;
+
         private static float y;
+
         private static float z;
 
-        gps()
+        private gps()
         {
             x = 0;
             y = 0;

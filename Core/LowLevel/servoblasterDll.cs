@@ -8,7 +8,7 @@
     using Drone.Core.Networking;
 
     /// <summary>
-    /// Dll to handle servoblaster dll
+    ///     Dll to handle servoblaster dll
     /// </summary>
     internal static class servoblasterDll
     {
@@ -34,12 +34,12 @@
             content += "sprintf(\"echo %d=%d > /dev/servoblaster\", port, value);" + Environment.NewLine;
             content += "}" + Environment.NewLine;
 
-            #region fonction lire accelerometre
+            
 
             content += Environment.NewLine;
             content += "extern int __cdecl ";
 
-            #endregion
+            
 
             // System.IO.File.Create("./dll.c");
             File.WriteAllText("./dll2.c", content);

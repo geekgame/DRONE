@@ -1,38 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Net;
-using System.IO;
-
-namespace Drone.Core.Networking
+﻿namespace Drone.Core.Networking
 {
-    class Internet
+    using System;
+    using System.IO;
+    using System.Net;
+
+    using Drone.Core.utils;
+
+    internal class Internet
     {
         public static string GetHttp(string url)
         {
-            debut:
             try
             {
-                WebRequest r = WebRequest.Create(url);
-                WebResponse wr = r.GetResponse();
-                Stream data = wr.GetResponseStream();
-                string html = String.Empty;
+                var r = WebRequest.Create(url);
+                var wr = r.GetResponse();
+                var data = wr.GetResponseStream();
+                var html = string.Empty;
 
-                using (StreamReader sr = new StreamReader(data))
+                using (var sr = new StreamReader(data))
                 {
                     html = sr.ReadToEnd();
                 }
+
                 return html;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Drone.Core.utils.Console2.WriteLine("erreur.", ConsoleColor.Red);
-                return "";
+                Console2.WriteLine("erreur.", ConsoleColor.Red);
+                return string.Empty;
             }
         }
-
     }
 }

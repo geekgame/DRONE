@@ -1,6 +1,6 @@
 ﻿namespace Drone.Core.utils
 {
-    class myNetworking
+    internal class myNetworking
     {
     }
 }

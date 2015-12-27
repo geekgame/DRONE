@@ -1,12 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Program.cs" company="geekgame">
-//   
 // </copyright>
 // <summary>
 //   Defines the Program type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Drone
 {
     using System;
@@ -16,68 +14,72 @@ namespace Drone
     using System.Net.Sockets;
     using System.Threading;
 
-    using Core.Networking;
+    using Drone.Core;
 
     using SharpDX;
 
-    using Action = Drone.Core.enums.action;
-    using Mode = Drone.Core.enums.mode;
-    using Objective = Drone.Core.enums.objective;
+    using Action = Core.enums.action;
+    using Mode = Core.enums.mode;
+    using Objective = Core.enums.objective;
 
     /// <summary>
-    /// The program.
+    ///     The program.
     /// </summary>
     public static class Program
     {
         /// <summary>
-        /// All nav points remaining. Stack so everytime a point is reached, it's deleted and next point pop.
-        /// </summary>
-        public static Stack<Vector3> NavPoints = new Stack<Vector3>();
-
-        /// <summary>
-        /// The position of current objective
-        /// </summary>
-        public static Vector3 PosCurObjective = new Vector3();
-
-        /// <summary>
-        /// What does the drone want ?
-        /// </summary>
-        public static Objective ObjCurObjective = new Objective();
-
-        /// <summary>
-        /// What does the drone do ?
-        /// </summary>
-        public static Action CurAction;
-
-        /// <summary>
-        /// The current mode (vertical or horizontal)
-        /// </summary>
-        public static Mode CurMode = Mode.modeVertical;     //le mode de vol actuel
-
-        /// <summary>
-        /// Does the drone have to stay balanced ?
+        ///     Does the drone have to stay balanced ?
         /// </summary>
         public static volatile bool BalanceDrone = false;
 
         /// <summary>
-        /// Gets or sets a value indicating whether the user can control the drone or not
+        ///     What does the drone do ?
+        /// </summary>
+        public static Action CurAction;
+
+        /// <summary>
+        ///     The current mode (vertical or horizontal)
+        /// </summary>
+        public static Mode CurMode = Mode.modeVertical; // le mode de vol actuel
+
+        /// <summary>
+        ///     All nav points remaining. Stack so everytime a point is reached, it's deleted and next point pop.
+        /// </summary>
+        public static Stack<Vector3> NavPoints = new Stack<Vector3>();
+
+        /// <summary>
+        ///     What does the drone want ?
+        /// </summary>
+        public static Objective ObjCurObjective = new Objective();
+
+        /// <summary>
+        ///     The position of current objective
+        /// </summary>
+        public static Vector3 PosCurObjective = new Vector3();
+
+        /// <summary>
+        ///     Gets or sets a value indicating whether the user can control the drone or not
         /// </summary>
         public static bool Logged { get; set; }
 
         /// <summary>
-        /// Gets or sets the socket used to speak with server.
+        ///     Gets or sets the socket used to speak with server.
         /// </summary>
-        public static Socket Sock { get; set; } = null;
+        public static Socket Sock { get; set; }
 
         /// <summary>
-        /// The main.
+        ///     The main.
         /// </summary>
         /// <param name="args">
-        /// The args passed by using -XXX after the name of the app (not used in this app).
+        ///     The args passed by using -XXX after the name of the app (not used in this app).
         /// </param>
         /// <exception cref="ObjectDisposedException">L'objet de processus a déjà été supprimé. </exception>
-        /// <exception cref="Win32Exception">Une erreur s'est produite lors de l'ouverture du fichier associé. ouLa somme de la longueur des arguments et de la longueur du chemin d'accès complet au processus dépasse 2080.Le message d'erreur associé à cette exception peut être une des valeurs suivantes: « la zone de données passée à un appel système est trop petit. » ou « Accès refusé ».</exception>
-
+        /// <exception cref="Win32Exception">
+        ///     Une erreur s'est produite lors de l'ouverture du fichier associé. ouLa somme de la
+        ///     longueur des arguments et de la longueur du chemin d'accès complet au processus dépasse 2080.Le message d'erreur
+        ///     associé à cette exception peut être une des valeurs suivantes: « la zone de données passée à un appel système est
+        ///     trop petit. » ou « Accès refusé ».
+        /// </exception>
         public static void Main(string[] args)
         {
             while (true)
@@ -101,12 +103,13 @@ namespace Drone
                         {
                             // TODO: Handle the Win32Exception 
                         }
+
                         Sock = Core.Networking.Sock.mySock;
                         break;
 
                     case Action.ActionWaiting:
 
-                        System.Threading.Thread.Sleep(1000);
+                        Thread.Sleep(1000);
 
                         // Démarrer check serveur
                         // Démarrer attente ordres
@@ -115,7 +118,7 @@ namespace Drone
                     default:
                         CurAction = Action.ActionBooting;
                         break;
-                }       
+                }
             }
         }
     }

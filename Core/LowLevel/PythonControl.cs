@@ -1,29 +1,58 @@
-﻿
-//INUTILE, UNIQUEMENT CONSERVE POUR HISTORIQUE
-
-using System;
-
-using System.Diagnostics;
-using System.IO;
-using Drone.Properties;
-
+﻿//INUTILE, UNIQUEMENT CONSERVE POUR HISTORIQUE
 namespace Drone.Core.LowLevel
 {
-    class PythonControl
+    using System;
+    using System.Diagnostics;
+    using System.IO;
+
+    using Drone.Properties;
+
+    internal class PythonControl
     {
+        public static void ExecutePython(string cmd, string args)
+        {
+            // http://stackoverflow.com/a/27801632
+            var start = new ProcessStartInfo
+                            {
+                                FileName = cmd, 
+                                Arguments = args, 
+                                UseShellExecute = false, 
+                                RedirectStandardOutput = true
+                            };
+            using (var process = Process.Start(start))
+            {
+                if (process != null)
+                {
+                    using (var reader = process.StandardOutput)
+                    {
+                        var result = reader.ReadToEnd();
+                        Console.WriteLine(result);
+                        if (string.CompareOrdinal(result, string.Empty) != 0)
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         public static bool InitPythonFiles(string pythonExePath = "")
         {
             debut:
-            if (String.CompareOrdinal(pythonExePath, "") != 0 && File.Exists(pythonExePath)) return true;
-            //TODO : télécharger python
-            //Sous linux uniquement
+            if (string.CompareOrdinal(pythonExePath, string.Empty) != 0 && File.Exists(pythonExePath))
+            {
+                return true;
+            }
+
+            // TODO : télécharger python
+            // Sous linux uniquement
             if (Environment.OSVersion.Platform == PlatformID.Unix)
             {
-                ProcessStartInfo start = new ProcessStartInfo();
+                var start = new ProcessStartInfo();
                 start.FileName = "apt-get";
                 start.Arguments = "install python3";
                 start.UseShellExecute = true;
-                Process process = Process.Start(start);
+                var process = Process.Start(start);
             }
             else
             {
@@ -33,35 +62,13 @@ namespace Drone.Core.LowLevel
                 goto debut;
             }
 
-            string servoL = "import sys, os; os.system(\"echo 1=\"+sys.argv[1]);";
-            string servoR = "import sys, os; os.system(\"echo 2=\"+sys.argv[1]);";
-            string engL = "import sys, os; os.system(\"echo 3=\"+sys.argv[1]);";
-            string engR = "import sys, os; os.system(\"echo 4=\"+sys.argv[1]);";
-            //Le moteur arrière est géré avec les relais, donc GPIO, donc pas dans ce fichier. Voir Core.LowLevel.GPIO
-            return true;
-        }
+            var servoL = "import sys, os; os.system(\"echo 1=\"+sys.argv[1]);";
+            var servoR = "import sys, os; os.system(\"echo 2=\"+sys.argv[1]);";
+            var engL = "import sys, os; os.system(\"echo 3=\"+sys.argv[1]);";
+            var engR = "import sys, os; os.system(\"echo 4=\"+sys.argv[1]);";
 
-        public static void ExecutePython(string cmd, string args)
-        {
-            //http://stackoverflow.com/a/27801632
-            ProcessStartInfo start = new ProcessStartInfo
-            {
-                FileName = cmd,
-                Arguments = args,
-                UseShellExecute = false,
-                RedirectStandardOutput = true
-            };
-            using(Process process = Process.Start(start))
-            {
-                if (process != null)
-                    using (StreamReader reader = process.StandardOutput)
-                    {
-                        string result = reader.ReadToEnd();
-                        Console.WriteLine(result);
-                        if (String.CompareOrdinal(result, "") != 0)
-                            return;
-                    }
-            } 
+            // Le moteur arrière est géré avec les relais, donc GPIO, donc pas dans ce fichier. Voir Core.LowLevel.GPIO
+            return true;
         }
     }
 }

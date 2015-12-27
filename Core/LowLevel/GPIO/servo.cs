@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.IO;
-using System.Runtime.InteropServices;
-
-namespace Drone.Core.LowLevel.GPIO
+﻿namespace Drone.Core.LowLevel.GPIO
 {
-    class servo
+    internal class servo
     {
         public static int gpioToID(int gpio)
         {
@@ -33,12 +24,11 @@ namespace Drone.Core.LowLevel.GPIO
                     return 7;
                 default:
                     return 8;
-
             }
         }
+
         public static void initServoBlaster()
         {
-
         }
     }
 }
