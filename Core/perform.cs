@@ -96,7 +96,7 @@ namespace Drone.Core
                         {
                             new Thread(Configure.Config).Start();
                         }
-                        catch (OutOfMemoryException outOfMemoryException)
+                        catch (OutOfMemoryException)
                         {
                             Console.WriteLine(Resources.Perform_PerformSock_NOT_ENOUGH_MEMORY_TO_START_CONFIG_THREAD);
                             Sock.Send(Sock.mySock, "nemfct"); // NotEnoughMemoryForConfigThread

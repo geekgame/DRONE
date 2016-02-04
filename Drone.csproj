@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Drone.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpDX">
       <HintPath>..\..\..\..\Downloads\LeagueSharp\System\SharpDX.dll</HintPath>

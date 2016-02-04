@@ -87,22 +87,7 @@ namespace Drone
                 switch (CurAction)
                 {
                     case Action.ActionBooting:
-                        try
-                        {
                             CurAction = Startup.Boot() ? Action.ActionWaiting : Action.ActionProblem;
-                        }
-                        catch (ThreadStateException threadStateException)
-                        {
-                            // TODO: Handle the threadStateException 
-                        }
-                        catch (FileNotFoundException fileNotFoundException)
-                        {
-                            // TODO: Handle the FileNotFoundException 
-                        }
-                        catch (Win32Exception win32Exception)
-                        {
-                            // TODO: Handle the Win32Exception 
-                        }
 
                         Sock = Core.Networking.Sock.mySock;
                         break;

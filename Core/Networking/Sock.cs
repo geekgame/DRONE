@@ -3,6 +3,7 @@
 namespace Drone.Core.Networking
 {
     using System;
+    using System.IO;
     using System.Net;
     using System.Net.Sockets;
     using System.Text;
@@ -32,11 +33,17 @@ namespace Drone.Core.Networking
             // connectDone.WaitOne();
         }
 
+        /// <exception cref="SocketException">Une erreur s'est produite lors de la résolution de <paramref name="hostName" />. </exception>
+        /// <exception cref="ArgumentOutOfRangeException">La longueur de <paramref name="hostName" /> est supérieure à 255 caractères. </exception>
+        /// <exception cref="ArgumentNullException"><paramref name="hostName" /> a la valeur null. </exception>
+        /// <exception cref="IOException">Une erreur d'E/S s'est produite. </exception>
         public static void init(string ServerIp, int ServerPort)
         {
             Console.WriteLine("Recherche de l'adresse IP...");
             Console.WriteLine("Résolution DNS");
+#pragma warning disable 618
             var iph = Dns.Resolve(Dns.GetHostName());
+#pragma warning restore 618
 
             var ret = IPAddress.None;
             foreach (var ip in iph.AddressList)
@@ -44,20 +51,20 @@ namespace Drone.Core.Networking
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
                     ret = ip;
-                    Console.WriteLine("OK");
+                    Console.WriteLine(@"OK");
                     break;
                 }
             }
 
-            Console.WriteLine("IP = " + ret);
+            Console.WriteLine(@"IP = " + ret);
 
             var ipServer = IPAddress.Parse(ServerIp);
-            var remoteEP = new IPEndPoint(ipServer, ServerPort);
+            var remoteEp = new IPEndPoint(ipServer, ServerPort);
             var sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             mySock = sender;
 
-            Connect(remoteEP, sender);
+            Connect(remoteEp, sender);
         }
 
         /// <summary>
@@ -70,6 +77,12 @@ namespace Drone.Core.Networking
             return string.Empty;
         }
 
+        /// <summary>
+        /// The receive.
+        /// </summary>
+        /// <param name="client">
+        /// The client.
+        /// </param>
         public static void Receive(Socket client)
         {
             try
@@ -78,7 +91,7 @@ namespace Drone.Core.Networking
                 state.workSocket = client;
 
                 client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, ReceiveCallback, state);
-                Console.WriteLine("ready to receive");
+                Console.WriteLine(@"ready to receive");
             }
             catch (Exception e)
             {
@@ -86,11 +99,27 @@ namespace Drone.Core.Networking
             }
         }
 
+        /// <summary>
+        /// The send.
+        /// </summary>
+        /// <param name="client">
+        /// The client.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
         public static void Send(Socket client, string data)
         {
             var byteData = Encoding.ASCII.GetBytes(data);
 
-            client.BeginSend(byteData, 0, byteData.Length, SocketFlags.None, SendCallback, client);
+            try
+            {
+                client.BeginSend(byteData, 0, byteData.Length, SocketFlags.None, SendCallback, client);
+            }
+            catch (SocketException socketException)
+            {
+                Console.WriteLine(socketException.Message);
+            }
         }
 
         private static void ConnectCallback(IAsyncResult ar)

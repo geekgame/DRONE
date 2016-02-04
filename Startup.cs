@@ -9,6 +9,9 @@
 
 #define DEBUG
 
+using System.ComponentModel;
+using System.Security;
+
 namespace Drone
 {
     using System;
@@ -103,7 +106,7 @@ namespace Drone
             Console.WriteLine(@"Check des paramètres du drone.");
             if (!Settings.Default.isConfigured)
             {
-                Console2.WriteLine("Non paramétré. Il est conseillé de régler cela au plus vite.", ConsoleColor.Blue);
+                Console2.WriteLine(@"Non paramétré. Il est conseillé de régler cela au plus vite.", ConsoleColor.Blue);
                 Sock.Send(Sock.mySock, "Config");
             }
             else
@@ -124,10 +127,10 @@ namespace Drone
             Console2.WriteLine("Waiting", ConsoleColor.Blue);
 
             // Démarrer équilibrage
-            var tBalance = new Thread(Flight.Balance);
+            var balance = new Thread(Flight.Balance);
             try
             {
-                tBalance.Start();
+                balance.Start();
             }
             catch (OutOfMemoryException)
             {
@@ -243,14 +246,14 @@ namespace Drone
             // 3 pass
             if (datas.Length > 3)
             {
-                Console.WriteLine(datas[0] + "\n" + datas[1] + "\n" + datas[2] + "\n" + datas[3]);
+                Console.WriteLine(datas[0] + Environment.NewLine + datas[1] + Environment.NewLine + datas[2] + Environment.NewLine + datas[3]);
             }
 
             login = datas[2];
             pass = datas[3];
             ip = datas[0];
             port = int.Parse(datas[1]);
-            Console.WriteLine(@"---------------------------------------");
+            Console.WriteLine(@"------------------//---------------------");
             return true;
         }
 
