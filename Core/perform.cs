@@ -6,6 +6,9 @@
 //   actions executed when receiving commands
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using Drone.Core.utils;
+
 namespace Drone.Core
 {
     using System;
@@ -38,8 +41,8 @@ namespace Drone.Core
 
             if (string.CompareOrdinal(command.Split('|')[0], "login") == 0)
             {
-                if (string.CompareOrdinal(command.Split('|')[1], "login") == 0
-                    && string.CompareOrdinal(command.Split('|')[2], "pass") == 0)
+                if (string.CompareOrdinal(command.Split('|')[1], "a") == 0       // TODO : change these values  to edit login and pass to connect to the drone.
+                    && string.CompareOrdinal(command.Split('|')[2], "b") == 0)    //
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine(
@@ -67,6 +70,7 @@ namespace Drone.Core
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(Resources.Perform_PerformSock_Denied_);
                 Sock.Send(Sock.mySock, "DeniedNotLoggedIn");
+                Sock.Send(Sock.mySock, command.Split('|')[1]);
                 Console.ForegroundColor = ConsoleColor.White;
             }
             else
@@ -78,6 +82,11 @@ namespace Drone.Core
                     {
                         Flight.SwitchMode(enums.mode.modeVertical);
                     }
+                    else
+                    {
+                        Flight.SwitchMode(enums.mode.modeHorizontal);
+                    }
+                    Console2.WriteLine("Changing flying mode", ConsoleColor.Blue);
                 }
 
                 if (command.Contains("SHUT"))

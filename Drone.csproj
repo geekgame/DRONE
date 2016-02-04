@@ -61,6 +61,7 @@
     <Compile Include="Core\LowLevel\servoblasterDll.cs" />
     <Compile Include="Core\LowLevel\servo\servo.cs" />
     <Compile Include="Core\LowLevel\servo\ServoBlaster.cs" />
+    <Compile Include="Core\math\polygons\Point.cs" />
     <Compile Include="Core\math\polygons\Polygon.cs" />
     <Compile Include="Core\nav\flight.cs" />
     <Compile Include="Core\nav\gps.cs" />

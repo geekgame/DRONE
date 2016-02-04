@@ -93,8 +93,12 @@ namespace Drone
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(Resources.Startup_Boot_Debut_phase_de_démarrage);
             CheckFiles();
-            GetCredentials();
+            if (!GetCredentials())
+            {
+                return false;
+            }
             Console.WriteLine(Resources.Startup_Boot_Drone_en_ligne__Connexion_au_serveur);
+
             Sock.init(ip, port);
             Console.WriteLine(@"Connexion au serveur effectuée. Test des données");
             Thread.Sleep(1000);
@@ -236,25 +240,34 @@ namespace Drone
 
             var file = Internet.GetHttp(@"http://127.0.0.1/drone/config");
 
-            var datas = file.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            string[] datas;
 
-            Console.WriteLine(@"---------------------------------------");
-
-            // 0 IP
-            // 1 port
-            // 2 login
-            // 3 pass
-            if (datas.Length > 3)
+            try
             {
-                Console.WriteLine(datas[0] + Environment.NewLine + datas[1] + Environment.NewLine + datas[2] + Environment.NewLine + datas[3]);
-            }
+                datas = file.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+                Console.WriteLine(@"---------------------------------------");
 
-            login = datas[2];
-            pass = datas[3];
-            ip = datas[0];
-            port = int.Parse(datas[1]);
-            Console.WriteLine(@"------------------//---------------------");
-            return true;
+                // 0 IP
+                // 1 port
+                // 2 login
+                // 3 pass
+                if (datas.Length > 3)
+                {
+                    Console.WriteLine(datas[0] + Environment.NewLine + datas[1] + Environment.NewLine + datas[2] + Environment.NewLine + datas[3]);
+                }
+
+                login = datas[2];
+                pass = datas[3];
+                ip = datas[0];
+                port = int.Parse(datas[1]);
+                Console.WriteLine(@"------------------//---------------------");
+                return true;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine(@"Impossible de récupérer le contenu.");
+                return false;
+            }
         }
 
         /// <summary>

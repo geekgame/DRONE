@@ -129,4 +129,13 @@ traitement msg</value>
   <data name="Perform_PerformSock_NOT_ENOUGH_MEMORY_TO_START_CONFIG_THREAD" xml:space="preserve">
     <value>NOT ENOUGH MEMORY TO START CONFIG THREAD</value>
   </data>
+  <data name="Program_Main_boot_fail_new_try_in_3_seconds" xml:space="preserve">
+    <value>Echec du démarrage. Nouvelle tentative dans 3 secondes.</value>
+  </data>
+  <data name="Sock_init_Searching_IP_Address" xml:space="preserve">
+    <value>Recherche de l'adresse IP...</value>
+  </data>
+  <data name="Sock_init_DNS_Resolving" xml:space="preserve">
+    <value>Résolution DNS</value>
+  </data>
 </root>

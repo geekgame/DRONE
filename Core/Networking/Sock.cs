@@ -1,5 +1,7 @@
 ﻿#define DEBUG
 
+using Drone.Properties;
+
 namespace Drone.Core.Networking
 {
     using System;
@@ -25,10 +27,19 @@ namespace Drone.Core.Networking
 
         public static volatile string response;
 
-        public static void Connect(EndPoint remoteEP, Socket client)
+        public static bool Connect(EndPoint remoteEP, Socket client)
         {
             Console.WriteLine("Connexion");
-            client.BeginConnect(remoteEP, ConnectCallback, client);
+            try
+            {
+                client.BeginConnect(remoteEP, ConnectCallback, client);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Impossible de se connecter au serveur");
+                return false;
+            }
+            return true;
 
             // connectDone.WaitOne();
         }
@@ -39,8 +50,8 @@ namespace Drone.Core.Networking
         /// <exception cref="IOException">Une erreur d'E/S s'est produite. </exception>
         public static void init(string ServerIp, int ServerPort)
         {
-            Console.WriteLine("Recherche de l'adresse IP...");
-            Console.WriteLine("Résolution DNS");
+            Console.WriteLine(Resources.Sock_init_Searching_IP_Address);
+            Console.WriteLine(Resources.Sock_init_DNS_Resolving);
 #pragma warning disable 618
             var iph = Dns.Resolve(Dns.GetHostName());
 #pragma warning restore 618
@@ -95,6 +106,7 @@ namespace Drone.Core.Networking
             }
             catch (Exception e)
             {
+                //Console.WriteLine(e.HResult);
                 Console.WriteLine(e.ToString());
             }
         }

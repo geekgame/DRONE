@@ -5,6 +5,9 @@
 //   Defines the Program type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using Drone.Properties;
+
 namespace Drone
 {
     using System;
@@ -99,8 +102,10 @@ namespace Drone
                         // Démarrer check serveur
                         // Démarrer attente ordres
                         break;
-
                     default:
+                        Console.WriteLine(Resources.Program_Main_boot_fail_new_try_in_3_seconds);
+                        System.Threading.Thread.Sleep(3000);
+                        Console.Clear();
                         CurAction = Action.ActionBooting;
                         break;
                 }

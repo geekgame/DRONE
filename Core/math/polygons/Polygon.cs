@@ -1,39 +1,45 @@
 ﻿//using Drone.Extensions.SharpDX;
+
+using System.Collections.Generic;
+using SharpDX;
+using Point = Drone.Core.math.polygons.Point;
+
 namespace Drone.Core.math.Polygons
 {
-    internal class Polygon
+    public class Polygon
     {
-        /*
-        private static List<Vector2> _points = new List<Vector2>();
+        private IList<Point> _points = new List<Point>();
 
-        public List<Vector2> Points
+        public Polygon()
         {
-            get
-            {
-                return _points;
-            }
-            set
-            {
-                _points = value;
-            }
         }
 
-        public void Add(Vector3 point)
+        public Polygon(IList<Point> points)
         {
-            this.Points.Add(point.ToVector2());
+            _points = points;
         }
 
-        public void Add(Vector2 point)
+        public void AddPoints(Point p)
         {
-            this.Points.Add(point);
+            _points.Add(p);
         }
 
-        public void Add(Polygon polygon)
+        public bool Contains(Point p)
         {
-            foreach(var point in polygon.Points)
+            var result = false;
+            var j = _points.Count - 1;
+            for (var i = 0; i < _points.Count; i++)
             {
-                this.Points.Add(point);
+                if (_points[i].Y < p.Y && _points[j].Y >= p.Y || _points[j].Y < p.Y && _points[i].Y >= p.Y)
+                {
+                    if (_points[i].X + (p.Y - _points[i].Y) / (_points[j].Y - _points[i].Y) * (_points[j].X - _points[i].X) < p.X)
+                    {
+                        result = !result;
+                    }
+                }
+                j = i;
             }
-        }*/
+            return result;
+        }
     }
 }
