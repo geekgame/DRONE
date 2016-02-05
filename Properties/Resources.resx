@@ -138,4 +138,7 @@ traitement msg</value>
   <data name="Sock_init_DNS_Resolving" xml:space="preserve">
     <value>Résolution DNS</value>
   </data>
+  <data name="Sock_Connect_Unable_to_connect_to_server" xml:space="preserve">
+    <value>Impossible de se connecter au serveur</value>
+  </data>
 </root>

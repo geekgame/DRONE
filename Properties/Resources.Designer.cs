@@ -143,6 +143,15 @@ namespace Drone.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Impossible de se connecter au serveur.
+        /// </summary>
+        internal static string Sock_Connect_Unable_to_connect_to_server {
+            get {
+                return ResourceManager.GetString("Sock_Connect_Unable_to_connect_to_server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Résolution DNS.
         /// </summary>
         internal static string Sock_init_DNS_Resolving {
