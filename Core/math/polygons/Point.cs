@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Drone.Core.math.polygons
+﻿namespace Drone.Core.math.polygons
 {
     public class Point
     {
@@ -13,8 +7,8 @@ namespace Drone.Core.math.polygons
 
         public Point(double dx, double dy)
         {
-            this.X = dx;
-            this.Y = dy;
+            X = dx;
+            Y = dy;
         }
     }
 }

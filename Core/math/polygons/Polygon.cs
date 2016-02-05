@@ -1,7 +1,6 @@
 ﻿//using Drone.Extensions.SharpDX;
 
 using System.Collections.Generic;
-using SharpDX;
 using Point = Drone.Core.math.polygons.Point;
 
 namespace Drone.Core.math.Polygons
@@ -10,20 +9,36 @@ namespace Drone.Core.math.Polygons
     {
         private IList<Point> _points = new List<Point>();
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Polygon()
         {
         }
 
+        /// <summary>
+        /// Constructor with points arguments
+        /// </summary>
+        /// <param name="points"></param>
         public Polygon(IList<Point> points)
         {
             _points = points;
         }
 
+        /// <summary>
+        /// Add point in the list.
+        /// </summary>
+        /// <param name="p"></param>
         public void AddPoints(Point p)
         {
             _points.Add(p);
         }
 
+        /// <summary>
+        /// Check if a point (p) is inside a polygon
+        /// </summary>
+        /// <param name="p">The point to check</param>
+        /// <returns>True if point is contained.</returns>
         public bool Contains(Point p)
         {
             var result = false;

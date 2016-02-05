@@ -98,7 +98,7 @@ namespace Drone.Core.LowLevel
                 start.FileName = "apt-get";
                 start.Arguments = "install python3";
                 start.UseShellExecute = true;
-                var process = Process.Start(start);
+                Process.Start(start);
             }
             else
             {

@@ -1,11 +1,11 @@
 ﻿#define DEBUG
 
+using System.IO;
 using Drone.Properties;
 
 namespace Drone.Core.Networking
 {
     using System;
-    using System.IO;
     using System.Net;
     using System.Net.Sockets;
     using System.Text;
@@ -224,6 +224,9 @@ namespace Drone.Core.Networking
     }
 
     #region SOCK2
+
+    // TODO : REFACTOR ALL SOCKETS IN THE CODE
+    // TODO : ================================
 
     public class Sock2
     {

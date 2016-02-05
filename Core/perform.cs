@@ -7,19 +7,17 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Security;
+using System.Threading;
+using Drone.Core.LowLevel.servo;
+using Drone.Core.nav;
+using Drone.Core.Networking;
 using Drone.Core.utils;
+using Drone.Properties;
 
 namespace Drone.Core
 {
-    using System;
-    using System.Security;
-    using System.Threading;
-
-    using Drone.Core.LowLevel.servo;
-    using Drone.Core.nav;
-    using Drone.Core.Networking;
-    using Drone.Properties;
-
     /// <summary>
     ///     actions executed when receiving commands
     /// </summary>

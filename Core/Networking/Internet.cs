@@ -38,6 +38,7 @@ namespace Drone.Core.Networking
                 var data = wr.GetResponseStream();
                 var html = string.Empty;
 
+                if (data == null) return html; // Currently, html = string.Empty
                 using (var sr = new StreamReader(data))
                 {
                     html = sr.ReadToEnd();

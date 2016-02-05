@@ -9,22 +9,18 @@
 
 #define DEBUG
 
-using System.ComponentModel;
-using System.Security;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
+using Drone.Core.LowLevel;
+using Drone.Core.nav;
+using Drone.Core.Networking;
+using Drone.Core.utils;
+using Drone.Properties;
 
 namespace Drone
 {
-    using System;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Threading;
-
-    using Drone.Core.LowLevel;
-    using Drone.Core.nav;
-    using Drone.Core.Networking;
-    using Drone.Core.utils;
-    using Drone.Properties;
-
     /// <summary>
     ///     Class to start program, initialization etc
     /// </summary>
@@ -123,6 +119,7 @@ namespace Drone
 
             while (!Program.Logged)
             {
+                // Waiting for user to be logged. Another thread handles this connection, so this is not blocking.
             }
 
             Console2.WriteLine(@"Drone démarré. Bienvenue.", ConsoleColor.Green);
@@ -140,16 +137,31 @@ namespace Drone
             {
                 Console.WriteLine(@"NOT ENOUGH MEMORY. RESTARTING...");
                 Thread.Sleep(1000);
-                var psi = new ProcessStartInfo
-                              {
-                                  UseShellExecute = true, 
-                                  FileName = "/sbin/shutdown", 
-                                  Arguments = "-r now"
-                              };
+
+                ProcessStartInfo psi;
+                if (Environment.OSVersion.ToString().Contains("Windows"))
+                {
+                    // Si Windows
+                    psi = new ProcessStartInfo
+                    {
+                        UseShellExecute = true,
+                        FileName = "shutdown",
+                        Arguments = "/r /t 0"
+                    };
+                }
+                else
+                {
+                    // Si linux
+                    psi = new ProcessStartInfo
+                    {
+                        UseShellExecute = true,
+                        FileName = "/sbin/shutdown",
+                        Arguments = "-r now"
+                    };
+                }
+                
                 Process.Start(psi);
             }
-
-            Thread.Sleep(1000);
 
             // balanceDrone = false;
             return true;
@@ -238,7 +250,7 @@ namespace Drone
             Console.WriteLine(@"Récupération des identifiants.");
             Console.WriteLine(@"Tentative de connexion au serveur...");
 
-            var file = Internet.GetHttp(@"http://127.0.0.1/drone/config");
+            var file = Internet.GetHttp("http://127.0.0.1/drone/config");
 
             string[] datas;
 

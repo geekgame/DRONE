@@ -6,24 +6,20 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Net.Sockets;
+using System.Threading;
+using Drone.Core;
 using Drone.Properties;
+using SharpDX;
 
 namespace Drone
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.IO;
-    using System.Net.Sockets;
-    using System.Threading;
-
-    using Drone.Core;
-
-    using SharpDX;
-
-    using Action = Core.enums.action;
-    using Mode = Core.enums.mode;
-    using Objective = Core.enums.objective;
+    using Action = enums.action;
+    using Mode = enums.mode;
+    using Objective = enums.objective;
 
     /// <summary>
     ///     The program.
@@ -104,7 +100,7 @@ namespace Drone
                         break;
                     default:
                         Console.WriteLine(Resources.Program_Main_boot_fail_new_try_in_3_seconds);
-                        System.Threading.Thread.Sleep(3000);
+                        Thread.Sleep(3000);
                         Console.Clear();
                         CurAction = Action.ActionBooting;
                         break;
