@@ -302,7 +302,7 @@ namespace Drone.Core.Networking
         /// <param name="client">
         /// The client.
         /// </param>
-        public static void Receive(Socket client)
+        public void Receive(Socket client)
         {
             try
             {
