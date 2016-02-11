@@ -9,15 +9,15 @@
 
 #define DEBUG
 
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
 using Drone.Core.LowLevel;
 using Drone.Core.nav;
 using Drone.Core.Networking;
 using Drone.Core.utils;
 using Drone.Properties;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
 
 namespace Drone
 {
@@ -159,7 +159,7 @@ namespace Drone
                         Arguments = "-r now"
                     };
                 }
-                
+
                 Process.Start(psi);
             }
 
@@ -265,7 +265,8 @@ namespace Drone
                 // 3 pass
                 if (datas.Length > 3)
                 {
-                    Console.WriteLine(datas[0] + Environment.NewLine + datas[1] + Environment.NewLine + datas[2] + Environment.NewLine + datas[3]);
+                    Console.WriteLine(datas[0] + Environment.NewLine + datas[1] + Environment.NewLine + datas[2] +
+                                      Environment.NewLine + datas[3]);
                 }
 
                 login = datas[2];

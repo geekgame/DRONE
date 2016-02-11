@@ -1,23 +1,29 @@
 ﻿//using Drone.Extensions.SharpDX;
 
+using Drone.Core.math.polygons;
 using System.Collections.Generic;
-using Point = Drone.Core.math.polygons.Point;
 
 namespace Drone.Core.math.Polygons
 {
     public class Polygon
     {
-        private IList<Point> _points = new List<Point>();
+        #region Private Fields
+
+        private readonly IList<Point> _points = new List<Point>();
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         /// <summary>
-        /// Default constructor
+        ///     Default constructor
         /// </summary>
         public Polygon()
         {
         }
 
         /// <summary>
-        /// Constructor with points arguments
+        ///     Constructor with points arguments
         /// </summary>
         /// <param name="points"></param>
         public Polygon(IList<Point> points)
@@ -25,8 +31,12 @@ namespace Drone.Core.math.Polygons
             _points = points;
         }
 
+        #endregion Public Constructors
+
+        #region Public Methods
+
         /// <summary>
-        /// Add point in the list.
+        ///     Add point in the list.
         /// </summary>
         /// <param name="p"></param>
         public void AddPoints(Point p)
@@ -35,7 +45,7 @@ namespace Drone.Core.math.Polygons
         }
 
         /// <summary>
-        /// Check if a point (p) is inside a polygon
+        ///     Check if a point (p) is inside a polygon
         /// </summary>
         /// <param name="p">The point to check</param>
         /// <returns>True if point is contained.</returns>
@@ -47,7 +57,8 @@ namespace Drone.Core.math.Polygons
             {
                 if (_points[i].Y < p.Y && _points[j].Y >= p.Y || _points[j].Y < p.Y && _points[i].Y >= p.Y)
                 {
-                    if (_points[i].X + (p.Y - _points[i].Y) / (_points[j].Y - _points[i].Y) * (_points[j].X - _points[i].X) < p.X)
+                    if (_points[i].X + (p.Y - _points[i].Y)/(_points[j].Y - _points[i].Y)*(_points[j].X - _points[i].X) <
+                        p.X)
                     {
                         result = !result;
                     }
@@ -56,5 +67,7 @@ namespace Drone.Core.math.Polygons
             }
             return result;
         }
+
+        #endregion Public Methods
     }
 }

@@ -1,8 +1,8 @@
-﻿namespace Drone.Properties
-{
-    using System.ComponentModel;
-    using System.Configuration;
+﻿using System.ComponentModel;
+using System.Configuration;
 
+namespace Drone.Properties
+{
     // This class allows you to handle specific events on the settings class:
     // The SettingChanging event is raised before a setting's value is changed.
     // The PropertyChanged event is raised after a setting's value is changed.
@@ -10,6 +10,8 @@
     // The SettingsSaving event is raised before the setting values are saved.
     public sealed partial class Settings
     {
+        #region Private Methods
+
         private void SettingChangingEventHandler(object sender, SettingChangingEventArgs e)
         {
             // Add code to handle the SettingChangingEvent event here.
@@ -19,5 +21,7 @@
         {
             // Add code to handle the SettingsSaving event here.
         }
+
+        #endregion Private Methods
     }
 }

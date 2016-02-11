@@ -1,7 +1,7 @@
-﻿namespace Drone.Core.LowLevel.sensor
-{
-    using System.Diagnostics;
+﻿using System.Diagnostics;
 
+namespace Drone.Core.LowLevel.sensor
+{
     internal class Accelerometer
     {
         public static string[] datas = new string[2];

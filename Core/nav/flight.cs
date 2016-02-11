@@ -6,15 +6,17 @@
 //   Defines the Program type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using Drone.Core.LowLevel.sensor;
+using Drone.Properties;
+using System;
+
 namespace Drone.Core.nav
 {
-    using System;
-
-    using Drone.Core.LowLevel.sensor;
-    using Drone.Properties;
-
     internal class Flight
     {
+        #region Public Methods
+
         /// <summary>
         ///     Balancing the drone TODO
         /// </summary>
@@ -36,7 +38,7 @@ namespace Drone.Core.nav
 
                     // ServoBlaster.setValue(2, (int)Math.Round(ML0 + Math.Pow(10 * (x - R0), 2)));
                     // ServoBlaster.setValue(4, (int)Math.Round(ML0 - Math.Pow(10 * (x - R0), 2)));
-                    Console.WriteLine(@"DROITE : " + (int)Math.Round(ML0 + Math.Pow(5 * (x - R0), 1)));
+                    Console.WriteLine(@"DROITE : " + (int) Math.Round(ML0 + Math.Pow(5*(x - R0), 1)));
                 }
             }
         }
@@ -54,14 +56,18 @@ namespace Drone.Core.nav
                 case enums.mode.modeHorizontal:
                     Program.CurMode = enums.mode.modeVtoH;
                     return true;
+
                 case enums.mode.modeVertical:
                     Program.CurMode = enums.mode.modeHtoV;
                     return true;
+
                 default:
 
                     // Ne rien faire
                     return true;
             }
         }
+
+        #endregion Public Methods
     }
 }

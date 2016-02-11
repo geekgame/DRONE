@@ -7,14 +7,13 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Security;
-using System.Threading;
 using Drone.Core.LowLevel.servo;
 using Drone.Core.nav;
 using Drone.Core.Networking;
 using Drone.Core.utils;
 using Drone.Properties;
+using System;
+using System.Threading;
 
 namespace Drone.Core
 {
@@ -23,6 +22,8 @@ namespace Drone.Core
     /// </summary>
     public static class Perform
     {
+        #region Public Methods
+
         /// <summary>
         ///     Interpretation of command (from socket's message)
         /// </summary>
@@ -39,8 +40,9 @@ namespace Drone.Core
 
             if (string.CompareOrdinal(command.Split('|')[0], "login") == 0)
             {
-                if (string.CompareOrdinal(command.Split('|')[1], "a") == 0       // TODO : change these values  to edit login and pass to connect to the drone.
-                    && string.CompareOrdinal(command.Split('|')[2], "b") == 0)    //
+                if (string.CompareOrdinal(command.Split('|')[1], "a") == 0
+                    // TODO : change these values  to edit login and pass to connect to the drone.
+                    && string.CompareOrdinal(command.Split('|')[2], "b") == 0) //
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine(
@@ -135,5 +137,7 @@ namespace Drone.Core
 
             return ".";
         }
+
+        #endregion Public Methods
     }
 }

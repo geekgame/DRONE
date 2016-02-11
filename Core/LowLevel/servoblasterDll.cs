@@ -1,17 +1,18 @@
-﻿namespace Drone.Core.LowLevel
+﻿using Drone.Core.Networking;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
+
+namespace Drone.Core.LowLevel
 {
-    using System;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Threading;
-
-    using Drone.Core.Networking;
-
     /// <summary>
     ///     Dll to handle servoblaster dll
     /// </summary>
     internal static class servoblasterDll
     {
+        #region Public Methods
+
         /// <summary>
         ///     Create dll to control servos
         /// </summary>
@@ -34,12 +35,8 @@
             content += "sprintf(\"echo %d=%d > /dev/servoblaster\", port, value);" + Environment.NewLine;
             content += "}" + Environment.NewLine;
 
-            
-
             content += Environment.NewLine;
             content += "extern int __cdecl ";
-
-            
 
             // System.IO.File.Create("./dll.c");
             File.WriteAllText("./dll2.c", content);
@@ -55,11 +52,11 @@
 
             // fin debug sous win
             var psi = new ProcessStartInfo
-                          {
-                              UseShellExecute = true, 
-                              FileName = "/usr/bin/gcc", 
-                              Arguments = "-shared -o dll.so -fPIC dll2.c"
-                          };
+            {
+                UseShellExecute = true,
+                FileName = "/usr/bin/gcc",
+                Arguments = "-shared -o dll.so -fPIC dll2.c"
+            };
 
             // psi.RedirectStandardError = true;
             psi.UseShellExecute = true;
@@ -78,5 +75,7 @@
                 goto debut;
             }
         }
+
+        #endregion Public Methods
     }
 }

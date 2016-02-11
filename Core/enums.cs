@@ -2,50 +2,54 @@
 {
     public static class @enums
     {
+        #region Public Enums
+
         public enum action
         {
-            ActionNo, 
+            ActionNo,
 
-            ActionMoving, 
+            ActionMoving,
 
-            ActionCalculating, 
+            ActionCalculating,
 
-            ActionReturning, 
+            ActionReturning,
 
-            ActionBooting, 
+            ActionBooting,
 
-            ActionProblem, 
+            ActionProblem,
 
             ActionWaiting
         }
 
         public enum control
         {
-            ControlNo, 
+            ControlNo,
 
-            ControlAuto, 
+            ControlAuto,
 
             ControlMan
         }
 
         public enum mode
         {
-            modeHorizontal, 
+            modeHorizontal,
 
-            modeVertical, 
+            modeVertical,
 
-            modeHtoV, 
+            modeHtoV,
 
             modeVtoH
         }
 
         public enum objective
         {
-            ObjectiveNope, 
+            ObjectiveNope,
 
-            ObjectiveMove, 
+            ObjectiveMove,
 
             ObjectiveStop
         }
+
+        #endregion Public Enums
     }
 }

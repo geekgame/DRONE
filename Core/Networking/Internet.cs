@@ -7,27 +7,28 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Drone.Core.utils;
+using System;
+using System.IO;
+using System.Net;
+
 namespace Drone.Core.Networking
 {
-    using System;
-    using System.IO;
-    using System.Net;
-
-    using Drone.Core.utils;
-
     /// <summary>
-    /// The internet.
+    ///     The internet.
     /// </summary>
     internal static class Internet
     {
+        #region Public Methods
+
         /// <summary>
-        /// The get http.
+        ///     The get http.
         /// </summary>
         /// <param name="url">
-        /// The url.
+        ///     The url.
         /// </param>
         /// <returns>
-        /// The <see cref="string"/>.
+        ///     The <see cref="string" />.
         /// </returns>
         public static string GetHttp(string url)
         {
@@ -53,5 +54,7 @@ namespace Drone.Core.Networking
                 return string.Empty;
             }
         }
+
+        #endregion Public Methods
     }
 }

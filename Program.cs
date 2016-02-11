@@ -6,14 +6,14 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Drone.Core;
+using Drone.Properties;
+using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Sockets;
 using System.Threading;
-using Drone.Core;
-using Drone.Properties;
-using SharpDX;
 
 namespace Drone
 {
@@ -26,6 +26,55 @@ namespace Drone
     /// </summary>
     public static class Program
     {
+        #region Public Methods
+
+        /// <summary>
+        ///     The main.
+        /// </summary>
+        /// <param name="args">
+        ///     The args passed by using -XXX after the name of the app (not used in this app).
+        /// </param>
+        /// <exception cref="ObjectDisposedException">L'objet de processus a déjà été supprimé. </exception>
+        /// <exception cref="Win32Exception">
+        ///     Une erreur s'est produite lors de l'ouverture du fichier associé. ouLa somme de la
+        ///     longueur des arguments et de la longueur du chemin d'accès complet au processus dépasse 2080.Le message d'erreur
+        ///     associé à cette exception peut être une des valeurs suivantes: « la zone de données passée à un appel système est
+        ///     trop petit. » ou « Accès refusé ».
+        /// </exception>
+        public static void Main(string[] args)
+        {
+            while (true)
+            {
+                switch (CurAction)
+                {
+                    case Action.ActionBooting:
+                        CurAction = Startup.Boot() ? Action.ActionWaiting : Action.ActionProblem;
+
+                        Sock = Core.Networking.Sock.mySock;
+                        break;
+
+                    case Action.ActionWaiting:
+
+                        Thread.Sleep(1000);
+
+                        // Démarrer check serveur
+                        // Démarrer attente ordres
+                        break;
+
+                    default:
+                        Console.WriteLine(Resources.Program_Main_boot_fail_new_try_in_3_seconds);
+                        Thread.Sleep(3000);
+                        Console.Clear();
+                        CurAction = Action.ActionBooting;
+                        break;
+                }
+            }
+        }
+
+        #endregion Public Methods
+
+        #region Public Fields
+
         /// <summary>
         ///     Does the drone have to stay balanced ?
         /// </summary>
@@ -56,6 +105,10 @@ namespace Drone
         /// </summary>
         public static Vector3 PosCurObjective = new Vector3();
 
+        #endregion Public Fields
+
+        #region Public Properties
+
         /// <summary>
         ///     Gets or sets a value indicating whether the user can control the drone or not
         /// </summary>
@@ -66,46 +119,6 @@ namespace Drone
         /// </summary>
         public static Socket Sock { get; set; }
 
-        /// <summary>
-        ///     The main.
-        /// </summary>
-        /// <param name="args">
-        ///     The args passed by using -XXX after the name of the app (not used in this app).
-        /// </param>
-        /// <exception cref="ObjectDisposedException">L'objet de processus a déjà été supprimé. </exception>
-        /// <exception cref="Win32Exception">
-        ///     Une erreur s'est produite lors de l'ouverture du fichier associé. ouLa somme de la
-        ///     longueur des arguments et de la longueur du chemin d'accès complet au processus dépasse 2080.Le message d'erreur
-        ///     associé à cette exception peut être une des valeurs suivantes: « la zone de données passée à un appel système est
-        ///     trop petit. » ou « Accès refusé ».
-        /// </exception>
-        public static void Main(string[] args)
-        {
-            while (true)
-            {
-                switch (CurAction)
-                {
-                    case Action.ActionBooting:
-                            CurAction = Startup.Boot() ? Action.ActionWaiting : Action.ActionProblem;
-
-                        Sock = Core.Networking.Sock.mySock;
-                        break;
-
-                    case Action.ActionWaiting:
-
-                        Thread.Sleep(1000);
-
-                        // Démarrer check serveur
-                        // Démarrer attente ordres
-                        break;
-                    default:
-                        Console.WriteLine(Resources.Program_Main_boot_fail_new_try_in_3_seconds);
-                        Thread.Sleep(3000);
-                        Console.Clear();
-                        CurAction = Action.ActionBooting;
-                        break;
-                }
-            }
-        }
+        #endregion Public Properties
     }
 }

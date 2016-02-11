@@ -1,33 +1,24 @@
 ﻿#define DEBUG
 
-using System.IO;
 using Drone.Properties;
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 
 namespace Drone.Core.Networking
 {
-    using System;
-    using System.Net;
-    using System.Net.Sockets;
-    using System.Text;
-
-    public class StateObject
-    {
-        //public const int BufferSize = 256;
-
-        public const int BufferSize = 64;
-
-        public byte[] buffer = new byte[BufferSize];
-
-        public StringBuilder sb = new StringBuilder();
-
-        public Socket workSocket;
-    }
-
     public class Sock
     {
+        #region Public Fields
+
         public static volatile Socket mySock;
 
         public static volatile string response;
+
+        #endregion Public Fields
+
+        #region Public Methods
 
         public static bool Connect(EndPoint remoteEP, Socket client)
         {
@@ -47,7 +38,10 @@ namespace Drone.Core.Networking
         }
 
         /// <exception cref="SocketException">Une erreur s'est produite lors de la résolution de <paramref name="hostName" />. </exception>
-        /// <exception cref="ArgumentOutOfRangeException">La longueur de <paramref name="hostName" /> est supérieure à 255 caractères. </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     La longueur de <paramref name="hostName" /> est supérieure à 255
+        ///     caractères.
+        /// </exception>
         /// <exception cref="ArgumentNullException"><paramref name="hostName" /> a la valeur null. </exception>
         /// <exception cref="IOException">Une erreur d'E/S s'est produite. </exception>
         public static void init(string ServerIp, int ServerPort)
@@ -91,10 +85,10 @@ namespace Drone.Core.Networking
         }
 
         /// <summary>
-        /// The receive.
+        ///     The receive.
         /// </summary>
         /// <param name="client">
-        /// The client.
+        ///     The client.
         /// </param>
         public static void Receive(Socket client)
         {
@@ -114,13 +108,13 @@ namespace Drone.Core.Networking
         }
 
         /// <summary>
-        /// The send.
+        ///     The send.
         /// </summary>
         /// <param name="client">
-        /// The client.
+        ///     The client.
         /// </param>
         /// <param name="data">
-        /// The data.
+        ///     The data.
         /// </param>
         public static void Send(Socket client, string data)
         {
@@ -136,11 +130,15 @@ namespace Drone.Core.Networking
             }
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
         private static void ConnectCallback(IAsyncResult ar)
         {
             try
             {
-                var client = (Socket)ar.AsyncState;
+                var client = (Socket) ar.AsyncState;
 
                 client.EndConnect(ar);
 
@@ -158,7 +156,7 @@ namespace Drone.Core.Networking
         {
             try
             {
-                var state = (StateObject)ar.AsyncState;
+                var state = (StateObject) ar.AsyncState;
                 var client = state.workSocket;
 
                 var bytesRead = client.EndReceive(ar);
@@ -209,7 +207,7 @@ namespace Drone.Core.Networking
         {
             try
             {
-                var client = (Socket)ar.AsyncState;
+                var client = (Socket) ar.AsyncState;
 
                 var bytesSent = client.EndSend(ar);
                 Console.WriteLine("Envoyé " + bytesSent + " bytes au serveur");
@@ -221,6 +219,25 @@ namespace Drone.Core.Networking
                 Console.WriteLine(e.ToString());
             }
         }
+
+        #endregion Private Methods
+    }
+
+    public class StateObject
+    {
+        //public const int BufferSize = 256;
+
+        #region Public Fields
+
+        public const int BufferSize = 64;
+
+        public byte[] buffer = new byte[BufferSize];
+
+        public StringBuilder sb = new StringBuilder();
+
+        public Socket workSocket;
+
+        #endregion Public Fields
     }
 
     #region SOCK2
@@ -230,36 +247,17 @@ namespace Drone.Core.Networking
 
     public class Sock2
     {
-        public Socket mySock;
-        public string response;
-
-        private string serverIP;
-        private int serverPort;
-
-        public bool Connect(EndPoint remoteEP, Socket client)
-        {
-            Console.WriteLine(@"Connexion V2");
-            try
-            {
-                client.BeginConnect(remoteEP, ConnectCallback, client);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine(@"Impossible de se connecter au serveur V2");
-                return false;
-            }
-            return true;
-        }
+        #region Public Constructors
 
         public Sock2(string serverIp, int serverPort)
         {
-            this.serverIP = serverIp;
+            serverIP = serverIp;
             this.serverPort = serverPort;
-/*
-#pragma warning disable 618
-            //var iph = Dns.Resolve(Dns.GetHostName());
-#pragma warning restore 618
-*/
+            /*
+            #pragma warning disable 618
+                        //var iph = Dns.Resolve(Dns.GetHostName());
+            #pragma warning restore 618
+            */
             var iph = Dns.GetHostEntry(Dns.GetHostName());
 
             var ret = IPAddress.None;
@@ -282,9 +280,25 @@ namespace Drone.Core.Networking
             mySock = sender;
 
             Connect(remoteEp, sender);
-
         }
 
+        #endregion Public Constructors
+
+        #region Public Fields
+
+        public Socket mySock;
+        public string response;
+
+        #endregion Public Fields
+
+        #region Private Fields
+
+        private string serverIP;
+        private int serverPort;
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         /// <summary>
         ///     La fonction attend et renvoie la valeur du socket lu
@@ -296,11 +310,26 @@ namespace Drone.Core.Networking
             return string.Empty;
         }
 
+        public bool Connect(EndPoint remoteEP, Socket client)
+        {
+            Console.WriteLine(@"Connexion V2");
+            try
+            {
+                client.BeginConnect(remoteEP, ConnectCallback, client);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine(@"Impossible de se connecter au serveur V2");
+                return false;
+            }
+            return true;
+        }
+
         /// <summary>
-        /// The receive.
+        ///     The receive.
         /// </summary>
         /// <param name="client">
-        /// The client.
+        ///     The client.
         /// </param>
         public void Receive(Socket client)
         {
@@ -320,13 +349,13 @@ namespace Drone.Core.Networking
         }
 
         /// <summary>
-        /// The send.
+        ///     The send.
         /// </summary>
         /// <param name="client">
-        /// The client.
+        ///     The client.
         /// </param>
         /// <param name="data">
-        /// The data.
+        ///     The data.
         /// </param>
         public void Send(Socket client, string data)
         {
@@ -342,11 +371,15 @@ namespace Drone.Core.Networking
             }
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
         private void ConnectCallback(IAsyncResult ar)
         {
             try
             {
-                var client = (Socket)ar.AsyncState;
+                var client = (Socket) ar.AsyncState;
 
                 client.EndConnect(ar);
 
@@ -364,7 +397,7 @@ namespace Drone.Core.Networking
         {
             try
             {
-                var state = (StateObject)ar.AsyncState;
+                var state = (StateObject) ar.AsyncState;
                 var client = state.workSocket;
 
                 var bytesRead = client.EndReceive(ar);
@@ -415,7 +448,7 @@ namespace Drone.Core.Networking
         {
             try
             {
-                var client = (Socket)ar.AsyncState;
+                var client = (Socket) ar.AsyncState;
 
                 var bytesSent = client.EndSend(ar);
                 Console.WriteLine("Envoyé " + bytesSent + " bytes au serveur");
@@ -427,6 +460,9 @@ namespace Drone.Core.Networking
                 Console.WriteLine(e.ToString());
             }
         }
+
+        #endregion Private Methods
     }
 }
-#endregion
+
+#endregion SOCK2

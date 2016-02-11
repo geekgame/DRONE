@@ -8,7 +8,7 @@
         public static int angleToValue(int angle)
         {
             // TODO : Trouver la fonction qui transforme l'angle en valeur à rentrer dans le drone pour orienter les hélices
-            return angle * 100;
+            return angle*100;
         }
     }
 }

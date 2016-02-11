@@ -1,17 +1,11 @@
-﻿namespace Drone.Core
-{
-    using Drone.Core.Networking;
-    using Drone.Properties;
+﻿using Drone.Core.Networking;
+using Drone.Properties;
 
+namespace Drone.Core
+{
     internal class Configure
     {
-        public static bool isConfigured = false;
-
-        public static bool isDroneAPlat = false;
-
-        public static bool isDroneTurned = false;
-
-        public static bool isDroneUp = false;
+        #region Public Methods
 
         public static void Config()
         {
@@ -45,5 +39,19 @@
             Settings.Default.isConfigured = true;
             Settings.Default.Save();
         }
+
+        #endregion Public Methods
+
+        #region Public Fields
+
+        public static bool isConfigured = false;
+
+        public static bool isDroneAPlat = false;
+
+        public static bool isDroneTurned = false;
+
+        public static bool isDroneUp = false;
+
+        #endregion Public Fields
     }
 }
